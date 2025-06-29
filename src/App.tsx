@@ -24,7 +24,6 @@ const border = '#222b36';
 // Constantes para breakpoints y paddings
 const PADDING_DESKTOP = 124;
 const PADDING_TABLET = 32;
-const PADDING_MOBILE = 4;
 const BREAKPOINT_TABLET = 700;
 const BREAKPOINT_MOBILE = 400;
 
@@ -48,19 +47,24 @@ const Container = styled.div`
   align-items: center;
   background: ${dark};
   width: 100vw;
+  max-width: 100vw;
   box-sizing: border-box;
   padding-left: ${PADDING_DESKTOP}px;
   padding-right: ${PADDING_DESKTOP}px;
+  overflow-x: hidden;
   @media (max-width: ${BREAKPOINT_TABLET}px) {
     padding-left: ${PADDING_TABLET}px;
     padding-right: ${PADDING_TABLET}px;
     min-height: 100dvh;
+    width: 100vw;
+    max-width: 100vw;
   }
   @media (max-width: ${BREAKPOINT_MOBILE}px) {
-    padding-left: ${PADDING_MOBILE}px;
-    padding-right: ${PADDING_MOBILE}px;
+    padding-left: 8px;
+    padding-right: 8px;
     min-height: 100dvh;
-    width: 100vw;
+    width: 100%;
+    max-width: 100%;
     overflow-x: hidden;
   }
 `;
@@ -137,19 +141,19 @@ const Menu = styled.nav`
   position: relative;
   z-index: 100;
   @media (max-width: ${BREAKPOINT_TABLET}px) {
+    width: 100%;
+    max-width: 100%;
     flex-direction: column;
     align-items: center;
     gap: 1.2rem;
     padding: 1.2rem 0 0.7rem 0;
-    width: 98vw;
-    max-width: 98vw;
     margin-bottom: 1.2rem;
   }
   @media (max-width: ${BREAKPOINT_MOBILE}px) {
+    width: 100%;
+    max-width: 100%;
     gap: 0.5rem;
     padding: 0.7rem 0 0.3rem 0;
-    width: 100vw;
-    max-width: 100vw;
     margin-bottom: 0.5rem;
   }
 `;
@@ -185,15 +189,16 @@ const MenuGroup = styled.div`
     }
   }
   @media (max-width: ${BREAKPOINT_TABLET}px) {
-    width: 98vw;
-    max-width: 98vw;
+    width: 100%;
+    max-width: 100%;
     justify-content: center;
+    align-items: center;
     padding: 0.5rem 0.5rem;
     font-size: 0.98rem;
   }
   @media (max-width: ${BREAKPOINT_MOBILE}px) {
-    width: 99vw;
-    max-width: 99vw;
+    width: 100%;
+    max-width: 100%;
     padding: 0.3rem 0.1rem;
     font-size: 0.92rem;
   }
@@ -209,11 +214,13 @@ const AddProcessSection = styled.section`
     flex-direction: column;
     gap: 0.7rem;
     width: 100%;
-    align-items: stretch;
+    align-items: center;
   }
   @media (max-width: ${BREAKPOINT_MOBILE}px) {
     gap: 0.3rem;
     margin: 1rem 0 0.5rem 0;
+    width: 100%;
+    align-items: center;
   }
 `;
 
@@ -243,6 +250,7 @@ const Input = styled.input`
     padding: 0.6rem 0.8rem;
   }
   @media (max-width: ${BREAKPOINT_MOBILE}px) {
+    width: 100%;
     font-size: 0.95rem;
     padding: 0.4rem 0.4rem;
     min-width: 0;
@@ -270,6 +278,7 @@ const Select = styled.select`
     padding: 0.6rem 0.8rem;
   }
   @media (max-width: ${BREAKPOINT_MOBILE}px) {
+    width: 100%;
     font-size: 0.95rem;
     padding: 0.4rem 0.4rem;
     min-width: 0;
@@ -325,6 +334,7 @@ const Button = styled.button`
     height: 36px;
   }
   @media (max-width: ${BREAKPOINT_MOBILE}px) {
+    width: 100%;
     font-size: 0.92rem;
     padding: 0.3rem 0.4rem;
     height: 32px;
@@ -436,6 +446,7 @@ const Title = styled.h1`
   text-align: center;
   word-break: break-word;
   hyphens: auto;
+  width: 100%;
   @media (max-width: ${BREAKPOINT_TABLET}px) {
     font-size: 1.3rem;
     margin-bottom: 1.2rem;
@@ -473,6 +484,7 @@ const Main = styled.div<{ animate?: boolean; resetAnim?: boolean; completeAnim?:
   z-index: 10;
   word-break: break-word;
   hyphens: auto;
+  box-sizing: border-box;
   @keyframes mainBounceIn {
     0% { opacity: 0; transform: translate(-50%, -50%) scale(0.85) translateY(80px); }
     60% { opacity: 1; transform: translate(-50%, -50%) scale(1.08) translateY(-10px); }
@@ -532,26 +544,35 @@ const Main = styled.div<{ animate?: boolean; resetAnim?: boolean; completeAnim?:
     100% { box-shadow: 0 8px 40px 0 #00eaffcc; }
   }
   @media (max-width: ${BREAKPOINT_TABLET}px) {
-    width: 99vw;
-    max-width: 99vw;
-    min-height: 80dvh;
+    position: static;
+    top: unset;
+    left: unset;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    min-height: 92dvh;
     padding: 1.2rem 0.2rem 1.2rem 0.2rem;
     font-size: 0.98rem;
+    margin: 0 auto;
+    border-radius: 8px;
+    display: flex;
+    align-items: stretch;
   }
   @media (max-width: ${BREAKPOINT_MOBILE}px) {
     position: static;
     top: unset;
     left: unset;
     transform: none;
-    width: 98vw;
-    max-width: 100vw;
-    min-height: unset;
-    padding: 0.7rem 0.05rem 0.7rem 0.05rem;
+    width: 100%;
+    max-width: 100%;
+    min-height: 92dvh;
+    padding: 0.7rem 12px 0.7rem 12px;
     font-size: 0.91rem;
     box-sizing: border-box;
-    display: block;
+    display: flex;
     margin: 0 auto;
     border-radius: 8px;
+    align-items: stretch;
   }
 `;
 
@@ -565,12 +586,16 @@ const LightningOverlay = styled.div`
   z-index: 2000;
   overflow: hidden;
   @media (max-width: ${BREAKPOINT_TABLET}px) {
-    width: 100vw;
-    height: 100dvh;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
   }
   @media (max-width: ${BREAKPOINT_MOBILE}px) {
-    width: 100vw;
-    height: 100vh;
+    position: absolute;
+    width: 100%;
+    height: 100%;
     left: 0;
     top: 0;
   }
