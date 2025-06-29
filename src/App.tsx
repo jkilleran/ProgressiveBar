@@ -21,6 +21,13 @@ const dark = '#10141a';
 const card = '#181d23';
 const border = '#222b36';
 
+// Constantes para breakpoints y paddings
+const PADDING_DESKTOP = 124;
+const PADDING_TABLET = 32;
+const PADDING_MOBILE = 4;
+const BREAKPOINT_TABLET = 700;
+const BREAKPOINT_MOBILE = 400;
+
 // Estilos globales y fuentes para toda la app
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Space+Grotesk:wght@400;700&display=swap');
@@ -42,12 +49,16 @@ const Container = styled.div`
   background: ${dark};
   width: 100vw;
   box-sizing: border-box;
-  @media (max-width: 700px) {
-    padding: 0 0.5rem;
+  padding-left: ${PADDING_DESKTOP}px;
+  padding-right: ${PADDING_DESKTOP}px;
+  @media (max-width: ${BREAKPOINT_TABLET}px) {
+    padding-left: ${PADDING_TABLET}px;
+    padding-right: ${PADDING_TABLET}px;
     min-height: 100dvh;
   }
-  @media (max-width: 400px) {
-    padding: 0 0.1rem;
+  @media (max-width: ${BREAKPOINT_MOBILE}px) {
+    padding-left: ${PADDING_MOBILE}px;
+    padding-right: ${PADDING_MOBILE}px;
     min-height: 100dvh;
     width: 100vw;
     overflow-x: hidden;
@@ -87,14 +98,14 @@ const MenuButton = styled.button`
     box-shadow: 0 2px 8px 0 #00eaff33;
     transform: scale(0.97);
   }
-  @media (max-width: 700px) {
+  @media (max-width: ${BREAKPOINT_TABLET}px) {
     top: 1.1rem;
     left: 1.1rem;
     width: 40px;
     height: 40px;
     padding: 0.5rem 0.6rem;
   }
-  @media (max-width: 400px) {
+  @media (max-width: ${BREAKPOINT_MOBILE}px) {
     top: 0.5rem;
     left: 0.5rem;
     width: 34px;
@@ -125,7 +136,7 @@ const Menu = styled.nav`
   transition: opacity 0.35s cubic-bezier(.4,2,.6,1), transform 0.35s cubic-bezier(.4,2,.6,1);
   position: relative;
   z-index: 100;
-  @media (max-width: 700px) {
+  @media (max-width: ${BREAKPOINT_TABLET}px) {
     flex-direction: column;
     align-items: center;
     gap: 1.2rem;
@@ -134,7 +145,7 @@ const Menu = styled.nav`
     max-width: 98vw;
     margin-bottom: 1.2rem;
   }
-  @media (max-width: 400px) {
+  @media (max-width: ${BREAKPOINT_MOBILE}px) {
     gap: 0.5rem;
     padding: 0.7rem 0 0.3rem 0;
     width: 100vw;
@@ -173,14 +184,14 @@ const MenuGroup = styled.div`
       box-shadow: 0 2px 8px 0 #0003;
     }
   }
-  @media (max-width: 700px) {
+  @media (max-width: ${BREAKPOINT_TABLET}px) {
     width: 98vw;
     max-width: 98vw;
     justify-content: center;
     padding: 0.5rem 0.5rem;
     font-size: 0.98rem;
   }
-  @media (max-width: 400px) {
+  @media (max-width: ${BREAKPOINT_MOBILE}px) {
     width: 99vw;
     max-width: 99vw;
     padding: 0.3rem 0.1rem;
@@ -194,13 +205,13 @@ const AddProcessSection = styled.section`
   display: flex;
   gap: 1rem;
   align-items: center;
-  @media (max-width: 700px) {
+  @media (max-width: ${BREAKPOINT_TABLET}px) {
     flex-direction: column;
     gap: 0.7rem;
     width: 100%;
     align-items: stretch;
   }
-  @media (max-width: 400px) {
+  @media (max-width: ${BREAKPOINT_MOBILE}px) {
     gap: 0.3rem;
     margin: 1rem 0 0.5rem 0;
   }
@@ -226,12 +237,12 @@ const Input = styled.input`
     outline: none;
     box-shadow: 0 0 0 2px #00eaff44;
   }
-  @media (max-width: 700px) {
+  @media (max-width: ${BREAKPOINT_TABLET}px) {
     width: 100%;
     font-size: 1rem;
     padding: 0.6rem 0.8rem;
   }
-  @media (max-width: 400px) {
+  @media (max-width: ${BREAKPOINT_MOBILE}px) {
     font-size: 0.95rem;
     padding: 0.4rem 0.4rem;
     min-width: 0;
@@ -253,12 +264,12 @@ const Select = styled.select`
     outline: none;
     box-shadow: 0 0 0 2px #00eaff44;
   }
-  @media (max-width: 700px) {
+  @media (max-width: ${BREAKPOINT_TABLET}px) {
     width: 100%;
     font-size: 1rem;
     padding: 0.6rem 0.8rem;
   }
-  @media (max-width: 400px) {
+  @media (max-width: ${BREAKPOINT_MOBILE}px) {
     font-size: 0.95rem;
     padding: 0.4rem 0.4rem;
     min-width: 0;
@@ -307,13 +318,13 @@ const Button = styled.button`
       opacity: 0;
     }
   }
-  @media (max-width: 700px) {
+  @media (max-width: ${BREAKPOINT_TABLET}px) {
     width: 100%;
     font-size: 1rem;
     padding: 0.5rem 0.8rem;
     height: 36px;
   }
-  @media (max-width: 400px) {
+  @media (max-width: ${BREAKPOINT_MOBILE}px) {
     font-size: 0.92rem;
     padding: 0.3rem 0.4rem;
     height: 32px;
@@ -342,11 +353,11 @@ const ResetIconButton = styled.button`
     color: ${cyan};
     transform: scale(0.95);
   }
-  @media (max-width: 700px) {
+  @media (max-width: ${BREAKPOINT_TABLET}px) {
     font-size: 1.5rem;
     margin-top: 1.2rem;
   }
-  @media (max-width: 400px) {
+  @media (max-width: ${BREAKPOINT_MOBILE}px) {
     font-size: 1.1rem;
     margin-top: 0.7rem;
     padding: 0.1rem;
@@ -362,7 +373,7 @@ const ConfirmDialog = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 99999;
-  @media (max-width: 400px) {
+  @media (max-width: ${BREAKPOINT_MOBILE}px) {
     align-items: flex-end;
     padding-bottom: 1.5rem;
   }
@@ -394,12 +405,12 @@ const ConfirmBox = styled.div`
       box-shadow: 0 2px 24px 0 #00eaffcc;
     }
   }
-  @media (max-width: 700px) {
+  @media (max-width: ${BREAKPOINT_TABLET}px) {
     padding: 1.2rem 0.7rem;
     min-width: 80vw;
     max-width: 98vw;
   }
-  @media (max-width: 400px) {
+  @media (max-width: ${BREAKPOINT_MOBILE}px) {
     padding: 0.7rem 0.2rem;
     min-width: 98vw;
     max-width: 100vw;
@@ -409,7 +420,7 @@ const ConfirmActions = styled.div`
   display: flex;
   gap: 1.2rem;
   margin-top: 1.5rem;
-  @media (max-width: 400px) {
+  @media (max-width: ${BREAKPOINT_MOBILE}px) {
     gap: 0.5rem;
     margin-top: 0.7rem;
   }
@@ -425,12 +436,12 @@ const Title = styled.h1`
   text-align: center;
   word-break: break-word;
   hyphens: auto;
-  @media (max-width: 700px) {
+  @media (max-width: ${BREAKPOINT_TABLET}px) {
     font-size: 1.3rem;
     margin-bottom: 1.2rem;
     padding: 0 0.5rem;
   }
-  @media (max-width: 400px) {
+  @media (max-width: ${BREAKPOINT_MOBILE}px) {
     font-size: 1.05rem;
     margin-bottom: 0.7rem;
     padding: 0 0.1rem;
@@ -520,19 +531,27 @@ const Main = styled.div<{ animate?: boolean; resetAnim?: boolean; completeAnim?:
     40% { box-shadow: 0 0 0 16px #00eaff44; }
     100% { box-shadow: 0 8px 40px 0 #00eaffcc; }
   }
-  @media (max-width: 700px) {
+  @media (max-width: ${BREAKPOINT_TABLET}px) {
     width: 99vw;
     max-width: 99vw;
     min-height: 80dvh;
     padding: 1.2rem 0.2rem 1.2rem 0.2rem;
     font-size: 0.98rem;
   }
-  @media (max-width: 400px) {
-    width: 100vw;
+  @media (max-width: ${BREAKPOINT_MOBILE}px) {
+    position: static;
+    top: unset;
+    left: unset;
+    transform: none;
+    width: 98vw;
     max-width: 100vw;
-    min-height: 90dvh;
+    min-height: unset;
     padding: 0.7rem 0.05rem 0.7rem 0.05rem;
     font-size: 0.91rem;
+    box-sizing: border-box;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
   }
 `;
 
@@ -545,11 +564,11 @@ const LightningOverlay = styled.div`
   pointer-events: none;
   z-index: 2000;
   overflow: hidden;
-  @media (max-width: 700px) {
+  @media (max-width: ${BREAKPOINT_TABLET}px) {
     width: 100vw;
     height: 100dvh;
   }
-  @media (max-width: 400px) {
+  @media (max-width: ${BREAKPOINT_MOBILE}px) {
     width: 100vw;
     height: 100vh;
     left: 0;
@@ -575,11 +594,11 @@ const LightningSVG = styled.svg<{ delay: number; left: string; top: string; scal
     60% { opacity: 0.7; }
     100% { opacity: 0; transform: scale(0.95); }
   }
-  @media (max-width: 700px) {
+  @media (max-width: ${BREAKPOINT_TABLET}px) {
     width: ${({ scale }) => 60 * scale}px;
     height: ${({ scale }) => 120 * scale}px;
   }
-  @media (max-width: 400px) {
+  @media (max-width: ${BREAKPOINT_MOBILE}px) {
     width: ${({ scale }) => 60 * scale}px;
     height: ${({ scale }) => 110 * scale}px;
     left: ${({ left }) => left};
@@ -587,78 +606,63 @@ const LightningSVG = styled.svg<{ delay: number; left: string; top: string; scal
   }
 `;
 
+// Utilidad para formatear valores
+const formatValue = (val: number, type: 'currency' | 'elements', lang: string) =>
+  type === 'currency'
+    ? val.toLocaleString(lang, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+    : val;
+
 // Componente principal de la app
 function App() {
-  // Hooks de traducción y estado global
-  const { t, i18n } = useTranslation(); // i18n para textos y cambio de idioma
-  // Estado de la meta total
+  const { t, i18n } = useTranslation();
+  // Forzar idioma por defecto a inglés al cargar la app
+  useEffect(() => {
+    if (i18n.language !== 'en') {
+      i18n.changeLanguage('en');
+    }
+  }, []);
   const [goal, setGoal] = useState(100);
-  // Estado del progreso actual
   const [current, setCurrent] = useState(0);
-  // Tipo de meta: 'currency' (dinero) o 'elements' (elementos)
   const [type, setType] = useState<'currency' | 'elements'>('currency');
-  // Valor a agregar al progreso
   const [addValue, setAddValue] = useState(0);
-  // Estado del menú de configuración (abierto/cerrado)
   const [menuOpen, setMenuOpen] = useState(false);
-  // Estado de animación de entrada del panel principal
   const [mainVisible, setMainVisible] = useState(false);
-  // Estado para mostrar el diálogo de confirmación de reset
   const [showConfirm, setShowConfirm] = useState(false);
-  // Estado para animación de reset
   const [resetAnim, setResetAnim] = useState(false);
-  // Estado para animación de completar meta
   const [completeAnim, setCompleteAnim] = useState(false);
-  // Estado para animación al agregar progreso
   const [addAnim, setAddAnim] = useState(false);
-  // Ref para el botón de agregar (efecto ripple)
   const buttonRef = useRef<HTMLButtonElement>(null);
-  // Ref para el panel principal (forzar animación de rombo)
   const mainRef = useRef<HTMLDivElement>(null);
 
-  // Animación de entrada del panel principal (fade in)
-  useEffect(() => {
-    setTimeout(() => setMainVisible(true), 200);
-  }, []);
+  // Animación de entrada del panel principal
+  useEffect(() => { setTimeout(() => setMainVisible(true), 200); }, []);
 
-  // Detecta cuando se completa la meta y dispara animación de rombo
+  // Animación al completar meta
   useEffect(() => {
     if (current >= goal && goal > 0) {
       setCompleteAnim(true);
-      // Forzar reinicio de animación de rombo (diamond)
       if (mainRef.current) {
         mainRef.current.classList.remove('complete-anim');
-        // Trigger reflow para reiniciar la animación
         void mainRef.current.offsetWidth;
         mainRef.current.classList.add('complete-anim');
       }
-      setTimeout(() => setCompleteAnim(false), 1100); // Duración igual a la animación CSS
+      setTimeout(() => setCompleteAnim(false), 1100);
     }
   }, [current, goal]);
 
-  // Detecta cuando se agrega progreso y dispara animación visual (pulse)
+  // Animación al agregar progreso
   useEffect(() => {
     if (addAnim) {
-      // La animación dura 600ms, luego se limpia el estado
       const timeout = setTimeout(() => setAddAnim(false), 600);
       return () => clearTimeout(timeout);
     }
   }, [addAnim]);
 
-  // Formatea valores según tipo y localización (moneda o número)
-  const formatValue = (val: number) => {
-    if (type === 'currency') {
-      return val.toLocaleString(i18n.language, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    }
-    return val;
-  };
+  // Porcentaje de progreso (0-100)
+  const percent = goal > 0 ? Math.min(100, Math.round((current / goal) * 100)) : 0;
 
-  // Calcula el porcentaje de progreso (0-100)
-  const percent = Math.min(100, Math.round((current / goal) * 100));
-
-  // Maneja el agregado de progreso y animación ripple
+  // Ripple y agregar progreso
   const handleAddProcess = (e?: React.MouseEvent) => {
-    // Efecto ripple visual en el botón
     if (e && buttonRef.current) {
       const btn = buttonRef.current;
       const circle = document.createElement('span');
@@ -671,20 +675,18 @@ function App() {
       btn.appendChild(circle);
       circle.addEventListener('animationend', () => circle.remove());
     }
-    // Si el valor a agregar es válido, actualiza el progreso
     if (addValue > 0) {
-      setCurrent(prev => {
-        const sum = prev + addValue;
-        // Limita el progreso máximo a la meta
-        return type === 'currency' ? Math.min(goal, parseFloat(sum.toFixed(2))) : Math.min(goal, sum);
-      });
+      setCurrent(prev => type === 'currency'
+        ? Math.min(goal, parseFloat((prev + addValue).toFixed(2)))
+        : Math.min(goal, prev + addValue)
+      );
       setAddValue(0);
-      setAddAnim(true); // Activa animación visual al agregar progreso
-      setTimeout(() => setAddAnim(false), 400); // Limpia animación tras 400ms
+      setAddAnim(true);
+      setTimeout(() => setAddAnim(false), 400);
     }
   };
 
-  // Maneja el reset de progreso con animación y confirmación
+  // Reset con animación
   const handleReset = () => {
     setResetAnim(true);
     setTimeout(() => {
@@ -694,7 +696,7 @@ function App() {
     }, 500);
   };
 
-  // Render principal de la app
+  // Render principal
   return (
     <ThemeProvider theme={{}}>
       <GlobalStyle />
@@ -741,15 +743,7 @@ function App() {
           animate={mainVisible}
           resetAnim={resetAnim}
           completeAnim={completeAnim}
-          className={
-            resetAnim
-              ? 'reset-anim'
-              : addAnim
-              ? 'add-anim'
-              : completeAnim
-              ? 'complete-anim'
-              : ''
-          }
+          className={resetAnim ? 'reset-anim' : addAnim ? 'add-anim' : completeAnim ? 'complete-anim' : ''}
         >
           {/* Efecto de rayo al completar meta (ahora reemplazado por overlay global) */}
           {/* {completeAnim && (
@@ -769,11 +763,9 @@ function App() {
           {/* Barra de progreso animada y contextualizada */}
           <SmokeProgressBar
             percent={percent}
-            label={
-              type === 'currency'
-                ? `$${formatValue(current)} / $${formatValue(goal)}`
-                : `${formatValue(current)} / ${formatValue(goal)}`
-            }
+            label={type === 'currency'
+              ? `$${formatValue(current, type, i18n.language)} / $${formatValue(goal, type, i18n.language)}`
+              : `${formatValue(current, type, i18n.language)} / ${formatValue(goal, type, i18n.language)}`}
             addAnim={addAnim}
           />
           {/* Sección para agregar progreso */}
