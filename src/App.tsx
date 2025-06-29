@@ -21,11 +21,7 @@ const dark = '#10141a';
 const card = '#181d23';
 const border = '#222b36';
 
-// Constantes para breakpoints y paddings
-const PADDING_DESKTOP = 124;
-const PADDING_TABLET = 32;
-const BREAKPOINT_TABLET = 700;
-const BREAKPOINT_MOBILE = 400;
+// --- ESTILOS PARA 275px DE ANCHO CON MEJORAS ESTÉTICAS Y ANIMACIONES ---
 
 // Estilos globales y fuentes para toda la app
 const GlobalStyle = createGlobalStyle`
@@ -39,62 +35,53 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-// Contenedor principal de la app (pantalla completa, centrado)
+// Contenedor principal de la app (mobile first)
 const Container = styled.div`
   min-height: 100vh;
+  width: 100vw;
+  max-width: 100vw;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: ${dark};
-  width: 100vw;
-  max-width: 100vw;
-  box-sizing: border-box;
-  padding-left: ${PADDING_DESKTOP}px;
-  padding-right: ${PADDING_DESKTOP}px;
+  background: linear-gradient(135deg, #10141a 60%, #181d23 100%);
   overflow-x: hidden;
-  @media (max-width: ${BREAKPOINT_TABLET}px) {
-    padding-left: ${PADDING_TABLET}px;
-    padding-right: ${PADDING_TABLET}px;
-    min-height: 100dvh;
-    width: 100vw;
-    max-width: 100vw;
-  }
-  @media (max-width: ${BREAKPOINT_MOBILE}px) {
-    padding-left: 8px;
-    padding-right: 8px;
-    min-height: 100dvh;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
+  animation: fadeInBg 1.2s cubic-bezier(.4,2,.6,1);
+  @keyframes fadeInBg {
+    0% { filter: blur(8px) brightness(0.7); }
+    100% { filter: blur(0) brightness(1); }
   }
 `;
 
-// Botón hamburguesa/X para mostrar/ocultar el menú de configuración
+// Botón hamburguesa/X para mostrar/ocultar el menú de configuración (mobile first)
 const MenuButton = styled.button`
   position: fixed;
-  top: 2.2rem;
-  left: 2.2rem;
+  top: 0.5rem;
+  left: 0.5rem;
+  margin: 0;
   z-index: 9999;
-  background: ${cyan};
+  background: linear-gradient(90deg, #00eaff 60%, #00b3c6 100%);
   color: #10141a;
   border: none;
-  border-radius: 0;
-  padding: 0.7rem 0.9rem;
-  width: 48px;
-  height: 48px;
+  border-radius: 12px;
+  padding: 0.3rem 0.5rem;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 18px 0 #00eaff55, 0 1.5px 0 #00eaff;
+  box-shadow: 0 2px 10px 0 #00eaff77, 0 1px 0 #00eaff;
   cursor: pointer;
+  font-size: 1.2rem;
   transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.08s;
   opacity: 1;
   pointer-events: auto;
   &:hover {
     background: #0e1a1f;
     color: ${cyan};
-    box-shadow: 0 6px 24px 0 #00eaff99;
-    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 4px 16px 0 #00eaffcc;
+    transform: translateY(-2px) scale(1.08);
   }
   &:active {
     background: #00eaff;
@@ -102,215 +89,191 @@ const MenuButton = styled.button`
     box-shadow: 0 2px 8px 0 #00eaff33;
     transform: scale(0.97);
   }
-  @media (max-width: ${BREAKPOINT_TABLET}px) {
-    top: 1.1rem;
-    left: 1.1rem;
-    width: 40px;
-    height: 40px;
-    padding: 0.5rem 0.6rem;
-  }
-  @media (max-width: ${BREAKPOINT_MOBILE}px) {
-    top: 0.5rem;
-    left: 0.5rem;
-    width: 34px;
-    height: 34px;
-    font-size: 1.1rem;
-    padding: 0.3rem 0.3rem;
-  }
 `;
 
-// Menú de configuración (meta, tipo, idioma)
+// Menú de configuración (mobile first, apilado)
 const Menu = styled.nav`
   width: 100vw;
   max-width: 100vw;
-  background: transparent;
-  padding: 1.5rem 0 1rem 0;
+  /* Fondo transparente, sin background */
+  background: none;
+  padding: 0.4rem 0 0.3rem 0;
+  margin: 8px 0 8px 0;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  gap: 2.5rem;
-  box-shadow: none;
-  border-bottom: none;
-  border-radius: 0;
-  margin-bottom: 2.5rem;
+  align-items: stretch;
+  gap: 0.4rem;
+  box-shadow: 0 2px 12px 0 #00eaff22;
+  border-bottom: 1.5px solid #00eaff33;
+  border-radius: 10px;
   opacity: 1;
   pointer-events: auto;
-  transform: translateY(0);
-  transition: opacity 0.35s cubic-bezier(.4,2,.6,1), transform 0.35s cubic-bezier(.4,2,.6,1);
   position: relative;
   z-index: 100;
-  @media (max-width: ${BREAKPOINT_TABLET}px) {
-    width: 100%;
-    max-width: 100%;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.2rem;
-    padding: 1.2rem 0 0.7rem 0;
-    margin-bottom: 1.2rem;
-  }
-  @media (max-width: ${BREAKPOINT_MOBILE}px) {
-    width: 100%;
-    max-width: 100%;
-    gap: 0.5rem;
-    padding: 0.7rem 0 0.3rem 0;
-    margin-bottom: 0.5rem;
+  animation: menuFadeIn 0.7s cubic-bezier(.22,1.5,.56,1);
+  @keyframes menuFadeIn {
+    0% { opacity: 0; transform: translateY(-24px) scale(0.95); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
   }
 `;
 
-// Grupo de controles dentro del menú
+// Grupo de controles dentro del menú (mobile first)
 const MenuGroup = styled.div`
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: ${dark};
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.18rem;
+  background: none;
   border-radius: 0;
-  padding: 0.3rem 0.7rem;
-  border: 1.5px solid ${border};
-  box-shadow: 0 2px 8px 0 #0003;
+  padding: 0.1rem 0.2rem;
+  border: none;
+  box-shadow: none;
   position: relative;
   z-index: 101;
-  animation: menuGroupFadeIn 0.7s cubic-bezier(.22,1.5,.56,1);
-  @keyframes menuGroupFadeIn {
-    0% {
-      opacity: 0;
-      transform: translateY(-32px) scale(0.95);
-      box-shadow: 0 0 0 0 #0000;
-    }
-    60% {
-      opacity: 0.7;
-      transform: translateY(12px) scale(1.03);
-      box-shadow: 0 4px 20px 0 #0005;
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      box-shadow: 0 2px 8px 0 #0003;
-    }
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  label {
+    color: #b2eaff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.05rem;
+    letter-spacing: 0.01em;
   }
-  @media (max-width: ${BREAKPOINT_TABLET}px) {
+  /* Asegura que todos los inputs/selects/botones hijos no desborden */
+  input, select, button {
     width: 100%;
+    box-sizing: border-box;
+    min-width: 0;
     max-width: 100%;
-    justify-content: center;
-    align-items: center;
-    padding: 0.5rem 0.5rem;
-    font-size: 0.98rem;
-  }
-  @media (max-width: ${BREAKPOINT_MOBILE}px) {
-    width: 100%;
-    max-width: 100%;
-    padding: 0.3rem 0.1rem;
-    font-size: 0.92rem;
+    overflow-x: hidden;
   }
 `;
 
-// Sección para agregar progreso
+// Sección para agregar progreso (mobile first)
 const AddProcessSection = styled.section`
-  margin: 2rem 0 1rem 0;
+  margin: 8px 0 0.3rem 0;
   display: flex;
-  gap: 1rem;
-  align-items: center;
-  @media (max-width: ${BREAKPOINT_TABLET}px) {
-    flex-direction: column;
-    gap: 0.7rem;
-    width: 100%;
-    align-items: center;
-  }
-  @media (max-width: ${BREAKPOINT_MOBILE}px) {
-    gap: 0.3rem;
-    margin: 1rem 0 0.5rem 0;
-    width: 100%;
-    align-items: center;
-  }
+  flex-direction: column;
+  gap: 0.18rem;
+  align-items: stretch;
+  width: 100%;
+  justify-content: center;
 `;
 
-// Input custom para meta y agregar progreso
+// Input custom para meta y agregar progreso (mobile first)
 const Input = styled.input`
-  background: #15181e;
+  background: rgba(21, 24, 30, 0.85);
+  backdrop-filter: blur(2.5px);
   border: 1.5px solid ${cyan};
   color: #fff;
-  border-radius: 0;
-  padding: 0.7rem 1.2rem;
-  width: 120px;
-  font-size: 1.1rem;
-  box-shadow: 0 2px 10px 0 #0004;
-  transition: border 0.2s, box-shadow 0.2s;
+  border-radius: 10px;
+  padding: 0.22rem 0.7rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  font-size: 1.05rem;
+  font-family: 'Space Grotesk', 'Inter', Arial, sans-serif;
+  box-shadow: 0 2px 12px 0 #00eaff22, 0 0.5px 0 #00eaff44;
+  margin: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  outline: none;
+  transition: border 0.25s cubic-bezier(.4,2,.6,1), box-shadow 0.25s cubic-bezier(.4,2,.6,1), background 0.25s cubic-bezier(.4,2,.6,1), color 0.18s;
   &::placeholder {
-    color: #b2c2cc;
+    color: #b2eaff;
     opacity: 1;
+    font-size: 0.98rem;
+    font-style: italic;
+    letter-spacing: 0.01em;
+    transition: color 0.18s;
+  }
+  &:hover {
+    background: rgba(24, 29, 35, 0.95);
+    box-shadow: 0 4px 16px 0 #00eaff33, 0 0.5px 0 #00eaff77;
+    border-color: #00eaff;
   }
   &:focus {
     border: 1.5px solid #fff;
-    outline: none;
-    box-shadow: 0 0 0 2px #00eaff44;
+    box-shadow: 0 0 0 2.5px #00eaff66, 0 2px 12px 0 #00eaff44;
+    background: rgba(24, 29, 35, 1);
+    color: #fff;
   }
-  @media (max-width: ${BREAKPOINT_TABLET}px) {
-    width: 100%;
-    font-size: 1rem;
-    padding: 0.6rem 0.8rem;
-  }
-  @media (max-width: ${BREAKPOINT_MOBILE}px) {
-    width: 100%;
-    font-size: 0.95rem;
-    padding: 0.4rem 0.4rem;
-    min-width: 0;
+  animation: inputFadeIn 0.7s cubic-bezier(.22,1.5,.56,1);
+  @keyframes inputFadeIn {
+    0% { opacity: 0; filter: blur(4px); }
+    100% { opacity: 1; filter: blur(0); }
   }
 `;
 
-// Select custom para tipo de meta e idioma
+// Select custom para tipo de meta e idioma (mobile first)
 const Select = styled.select`
-  background: #15181e;
+  background: rgba(21, 24, 30, 0.85);
+  backdrop-filter: blur(2.5px);
   border: 1.5px solid ${cyan};
   color: #fff;
-  border-radius: 0;
-  padding: 0.7rem 1.2rem;
-  font-size: 1.1rem;
-  box-shadow: 0 2px 10px 0 #0004;
-  transition: border 0.2s, box-shadow 0.2s;
+  border-radius: 10px;
+  padding: 0.22rem 0.7rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  font-size: 1.05rem;
+  font-family: 'Space Grotesk', 'Inter', Arial, sans-serif;
+  box-shadow: 0 2px 12px 0 #00eaff22, 0 0.5px 0 #00eaff44;
+  margin: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  outline: none;
+  transition: border 0.25s cubic-bezier(.4,2,.6,1), box-shadow 0.25s cubic-bezier(.4,2,.6,1), background 0.25s cubic-bezier(.4,2,.6,1), color 0.18s;
+  &:hover {
+    background: rgba(24, 29, 35, 0.95);
+    box-shadow: 0 4px 16px 0 #00eaff33, 0 0.5px 0 #00eaff77;
+    border-color: #00eaff;
+  }
   &:focus {
     border: 1.5px solid #fff;
-    outline: none;
-    box-shadow: 0 0 0 2px #00eaff44;
+    box-shadow: 0 0 0 2.5px #00eaff66, 0 2px 12px 0 #00eaff44;
+    background: rgba(24, 29, 35, 1);
+    color: #fff;
   }
-  @media (max-width: ${BREAKPOINT_TABLET}px) {
-    width: 100%;
-    font-size: 1rem;
-    padding: 0.6rem 0.8rem;
-  }
-  @media (max-width: ${BREAKPOINT_MOBILE}px) {
-    width: 100%;
-    font-size: 0.95rem;
-    padding: 0.4rem 0.4rem;
-    min-width: 0;
-  }
+  animation: inputFadeIn 0.7s cubic-bezier(.22,1.5,.56,1);
 `;
 
-// Botón custom para agregar progreso y acciones
+// Botón custom para agregar progreso y acciones (mobile first)
 const Button = styled.button`
   position: relative;
   overflow: hidden;
-  background: ${cyan};
+  background: linear-gradient(90deg, #00eaff 60%, #00b3c6 100%);
   color: #10141a;
   border: none;
-  border-radius: 0;
-  padding: 0.4rem 1.1rem;
+  border-radius: 8px;
+  padding: 0.18rem 0.5rem; /* padding lateral reducido para ultra compacto */
   min-width: 0;
-  height: 32px;
+  max-width: 100%;
+  width: 100%;
+  height: 28px;
   font-weight: 700;
   font-size: 0.95rem;
   cursor: pointer;
-  box-shadow: 0 0 0 2px #00eaff99, 0 2px 12px 0 #00eaff22;
+  box-shadow: 0 0 0 1.5px #00eaff99, 0 2px 6px 0 #00eaff22;
+  margin: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.08s;
   &:hover {
     background: #0e1a1f;
     color: ${cyan};
-    box-shadow: 0 0 0 4px #00eaff77, 0 4px 24px 0 #00eaff33;
-    transform: scale(1.09) translateY(-2px);
+    box-shadow: 0 0 0 2.5px #00eaff77, 0 2px 8px 0 #00eaff33;
+    transform: scale(1.04) translateY(-1px);
   }
   &:active {
     background: #00eaff;
     color: #10141a;
-    box-shadow: 0 0 0 1px #00eaff99, 0 1px 4px 0 #00eaff22;
+    box-shadow: 0 0 0 1.5px #00eaff99, 0 1px 2px 0 #00eaff22;
     transform: scale(0.97);
   }
   .ripple {
@@ -318,173 +281,40 @@ const Button = styled.button`
     border-radius: 50%;
     transform: scale(0);
     animation: ripple 0.7s cubic-bezier(.4,2,.6,1);
-    background: rgba(0,234,255,0.35);
+    background: rgba(0,234,255,0.25);
     pointer-events: none;
+    left: 50%; top: 50%;
+    width: 120%; height: 120%;
+    opacity: 0.5;
   }
   @keyframes ripple {
     to {
-      transform: scale(2.8);
+      transform: scale(1.2);
       opacity: 0;
     }
   }
-  @media (max-width: ${BREAKPOINT_TABLET}px) {
-    width: 100%;
-    font-size: 1rem;
-    padding: 0.5rem 0.8rem;
-    height: 36px;
-  }
-  @media (max-width: ${BREAKPOINT_MOBILE}px) {
-    width: 100%;
-    font-size: 0.92rem;
-    padding: 0.3rem 0.4rem;
-    height: 32px;
-    min-width: 0;
-  }
 `;
 
-// Botón de reset (ícono)
-const ResetIconButton = styled.button`
-  background: transparent;
-  border: none;
-  color: ${cyan};
-  cursor: pointer;
-  padding: 0.3rem;
-  margin-top: 2.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  transition: color 0.18s, transform 0.12s;
-  &:hover {
-    color: #fff;
-    transform: scale(1.15);
-  }
-  &:active {
-    color: ${cyan};
-    transform: scale(0.95);
-  }
-  @media (max-width: ${BREAKPOINT_TABLET}px) {
-    font-size: 1.5rem;
-    margin-top: 1.2rem;
-  }
-  @media (max-width: ${BREAKPOINT_MOBILE}px) {
-    font-size: 1.1rem;
-    margin-top: 0.7rem;
-    padding: 0.1rem;
-  }
-`;
-
-// Diálogo de confirmación de reset
-const ConfirmDialog = styled.div`
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.55);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 99999;
-  @media (max-width: ${BREAKPOINT_MOBILE}px) {
-    align-items: flex-end;
-    padding-bottom: 1.5rem;
-  }
-`;
-const ConfirmBox = styled.div`
-  background: ${card};
-  border: 2px solid ${cyan};
-  padding: 2rem 2.5rem;
-  box-shadow: 0 2px 24px 0 #000a;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 0;
-  animation: confirmFadeIn 0.7s cubic-bezier(.22,1.5,.56,1);
-  @keyframes confirmFadeIn {
-    0% {
-      opacity: 0;
-      transform: scale(0.95) translateY(30px);
-      box-shadow: 0 0 0 0 #0000;
-    }
-    60% {
-      opacity: 0.7;
-      transform: scale(1.08) translateY(-8px);
-      box-shadow: 0 8px 32px 0 #00eaff55;
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-      box-shadow: 0 2px 24px 0 #00eaffcc;
-    }
-  }
-  @media (max-width: ${BREAKPOINT_TABLET}px) {
-    padding: 1.2rem 0.7rem;
-    min-width: 80vw;
-    max-width: 98vw;
-  }
-  @media (max-width: ${BREAKPOINT_MOBILE}px) {
-    padding: 0.7rem 0.2rem;
-    min-width: 98vw;
-    max-width: 100vw;
-  }
-`;
-const ConfirmActions = styled.div`
-  display: flex;
-  gap: 1.2rem;
-  margin-top: 1.5rem;
-  @media (max-width: ${BREAKPOINT_MOBILE}px) {
-    gap: 0.5rem;
-    margin-top: 0.7rem;
-  }
-`;
-
-// Título principal
-const Title = styled.h1`
-  color: ${cyan};
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin-bottom: 2.2rem;
-  letter-spacing: 0.02em;
-  text-align: center;
-  word-break: break-word;
-  hyphens: auto;
-  width: 100%;
-  @media (max-width: ${BREAKPOINT_TABLET}px) {
-    font-size: 1.3rem;
-    margin-bottom: 1.2rem;
-    padding: 0 0.5rem;
-  }
-  @media (max-width: ${BREAKPOINT_MOBILE}px) {
-    font-size: 1.05rem;
-    margin-bottom: 0.7rem;
-    padding: 0 0.1rem;
-  }
-`;
-
-// Panel principal centralizado y animado (reset, complete, add)
+// Panel principal centralizado y animado (mobile first)
 const Main = styled.div<{ animate?: boolean; resetAnim?: boolean; completeAnim?: boolean }>`
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%)
-    ${({ animate }) => (animate ? '' : ' scale(0.98) translateY(60px)')}
-    ${({ resetAnim }) => (resetAnim ? ' scale(1.03) rotate(-2deg)' : '')}
-    ${({ completeAnim }) => (completeAnim ? ' scale(1.12) !important;' : '')};
+  transform: translate(-50%, -50%);
   width: 100vw;
-  max-width: 480px;
+  max-width: 260px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: ${card};
-  border-radius: 0;
-  box-shadow: 0 8px 40px 0 #000c;
-  padding: 2.5rem 2rem 2rem 2rem;
+  background: linear-gradient(135deg, #181d23 80%, #10141a 100%);
+  border-radius: 14px;
+  box-shadow: 0 6px 24px 0 #00eaff44, 0 2px 8px 0 #000c;
+  padding: 1.1rem 0.6rem 1.1rem 0.6rem;
   border: 1.5px solid ${border};
   opacity: ${({ animate }) => (animate ? 1 : 0)};
-  transition: opacity 0.9s cubic-bezier(.4,2,.6,1), transform 0.9s cubic-bezier(.4,2,.6,1), box-shadow 0.7s cubic-bezier(.4,2,.6,1);
+  margin: 10px 0 10px 0;
   animation: ${({ animate }) => animate ? 'mainBounceIn 1.1s cubic-bezier(.22,1.5,.56,1) both' : 'none'};
-  z-index: 10;
-  word-break: break-word;
-  hyphens: auto;
-  box-sizing: border-box;
+  transition: opacity 0.9s cubic-bezier(.4,2,.6,1), transform 0.9s cubic-bezier(.4,2,.6,1), box-shadow 0.7s cubic-bezier(.4,2,.6,1);
   @keyframes mainBounceIn {
     0% { opacity: 0; transform: translate(-50%, -50%) scale(0.85) translateY(80px); }
     60% { opacity: 1; transform: translate(-50%, -50%) scale(1.08) translateY(-10px); }
@@ -532,104 +362,106 @@ const Main = styled.div<{ animate?: boolean; resetAnim?: boolean; completeAnim?:
     80% { transform: translate(-50%, -50%) scale(0.97) rotate(2deg); }
     100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
   }
-  @keyframes completePulse {
-    0% { box-shadow: 0 0 0 0 #00eaff00; }
-    30% { box-shadow: 0 0 0 24px #00eaff55; }
-    60% { box-shadow: 0 0 0 12px #00eaff99; }
-    100% { box-shadow: 0 8px 40px 0 #00eaffcc; }
-  }
   @keyframes addPulse {
     0% { box-shadow: 0 0 0 0 #00eaff00; }
     40% { box-shadow: 0 0 0 16px #00eaff44; }
     100% { box-shadow: 0 8px 40px 0 #00eaffcc; }
-  }
-  @media (max-width: ${BREAKPOINT_TABLET}px) {
-    position: static;
-    top: unset;
-    left: unset;
-    transform: none;
-    width: 100%;
-    max-width: 100%;
-    min-height: 92dvh;
-    padding: 1.2rem 0.2rem 1.2rem 0.2rem;
-    font-size: 0.98rem;
-    margin: 0 auto;
-    border-radius: 8px;
-    display: flex;
-    align-items: stretch;
-  }
-  @media (max-width: ${BREAKPOINT_MOBILE}px) {
-    position: static;
-    top: unset;
-    left: unset;
-    transform: none;
-    width: 100%;
-    max-width: 100%;
-    min-height: 92dvh;
-    padding: 0.7rem 12px 0.7rem 12px;
-    font-size: 0.91rem;
-    box-sizing: border-box;
-    display: flex;
-    margin: 0 auto;
-    border-radius: 8px;
-    align-items: stretch;
+`;
+
+// Título principal (mobile first)
+const Title = styled.h1`
+  color: ${cyan};
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.01em;
+  text-align: center;
+  word-break: break-word;
+  hyphens: auto;
+  width: 100%;
+  padding: 0;
+  margin: 10px 0 10px 0;
+  text-shadow: 0 2px 8px #00eaff33;
+  animation: fadeInTitle 0.7s cubic-bezier(.22,1.5,.56,1);
+  @keyframes fadeInTitle {
+    0% { opacity: 0; transform: translateY(-16px) scale(0.95); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
   }
 `;
 
-// Overlay de relámpagos animados en toda la pantalla
-const LightningOverlay = styled.div`
+// Botón de reset (ícono, mobile first)
+const ResetIconButton = styled.button`
+  background: transparent;
+  border: none;
+  color: ${cyan};
+  cursor: pointer;
+  padding: 0.18rem;
+  margin: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  border-radius: 8px;
+  transition: color 0.18s, transform 0.12s, background 0.18s;
+  &:hover {
+    color: #fff;
+    background: #00eaff22;
+    transform: scale(1.15);
+  }
+  &:active {
+    color: ${cyan};
+    background: #00eaff11;
+    transform: scale(0.95);
+  }
+`;
+
+// Diálogo de confirmación de reset (mobile first)
+const ConfirmDialog = styled.div`
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 2000;
-  overflow: hidden;
-  @media (max-width: ${BREAKPOINT_TABLET}px) {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  margin: 0;
+  animation: fadeInDialog 0.5s cubic-bezier(.22,1.5,.56,1);
+  @keyframes fadeInDialog {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
   }
-  @media (max-width: ${BREAKPOINT_MOBILE}px) {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
+`;
+const ConfirmBox = styled.div`
+  background: linear-gradient(135deg, #181d23 80%, #10141a 100%);
+  border: 1.5px solid ${cyan};
+  padding: 0.7rem 0.7rem;
+  box-shadow: 0 2px 12px 0 #00eaff44;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  margin: 0;
+  animation: fadeInBox 0.7s cubic-bezier(.22,1.5,.56,1);
+  @keyframes fadeInBox {
+    0% { opacity: 0; transform: scale(0.95) translateY(20px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
   }
+`;
+const ConfirmActions = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-top: 0.6rem;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
 `;
 
-// Componente SVG de rayo animado individual
-const LightningSVG = styled.svg<{ delay: number; left: string; top: string; scale: number }>`
-  position: absolute;
-  left: ${({ left }) => left};
-  top: ${({ top }) => top};
-  width: ${({ scale }) => 80 * scale}px;
-  height: ${({ scale }) => 160 * scale}px;
-  opacity: 0;
-  filter: drop-shadow(0 0 32px #00eaffcc) drop-shadow(0 0 12px #fff8);
-  animation: lightningFlash 0.7s cubic-bezier(.22,1.5,.56,1);
-  animation-delay: ${({ delay }) => delay}s;
-  @keyframes lightningFlash {
-    0% { opacity: 0; transform: scale(0.9); filter: drop-shadow(0 0 0 #00eaff00); }
-    10% { opacity: 1; transform: scale(1.08); filter: drop-shadow(0 0 32px #00eaffcc) drop-shadow(0 0 32px #fff); }
-    30% { opacity: 1; transform: scale(1); }
-    60% { opacity: 0.7; }
-    100% { opacity: 0; transform: scale(0.95); }
-  }
-  @media (max-width: ${BREAKPOINT_TABLET}px) {
-    width: ${({ scale }) => 60 * scale}px;
-    height: ${({ scale }) => 120 * scale}px;
-  }
-  @media (max-width: ${BREAKPOINT_MOBILE}px) {
-    width: ${({ scale }) => 60 * scale}px;
-    height: ${({ scale }) => 110 * scale}px;
-    left: ${({ left }) => left};
-    top: ${({ top }) => top};
-  }
+// LightningOverlay y LightningSVG se ocultan completamente en pantallas de 150px
+const LightningOverlay = styled.div`
+  display: none !important;
 `;
+const LightningSVG = (props: any) => null;
 
 // Utilidad para formatear valores
 const formatValue = (val: number, type: 'currency' | 'elements', lang: string) =>
@@ -786,13 +618,15 @@ function App() {
           )} */}
           <Title>{t('title')}</Title>
           {/* Barra de progreso animada y contextualizada */}
-          <SmokeProgressBar
-            percent={percent}
-            label={type === 'currency'
-              ? `$${formatValue(current, type, i18n.language)} / $${formatValue(goal, type, i18n.language)}`
-              : `${formatValue(current, type, i18n.language)} / ${formatValue(goal, type, i18n.language)}`}
-            addAnim={addAnim}
-          />
+          <ProgressBarWrapper>
+            <SmokeProgressBar
+              percent={percent}
+              label={type === 'currency'
+                ? `$${formatValue(current, type, i18n.language)} / $${formatValue(goal, type, i18n.language)}`
+                : `${formatValue(current, type, i18n.language)} / ${formatValue(goal, type, i18n.language)}`}
+              addAnim={addAnim}
+            />
+          </ProgressBarWrapper>
           {/* Sección para agregar progreso */}
           <AddProcessSection>
             {/* Input para agregar progreso */}
@@ -859,3 +693,14 @@ function App() {
 }
 
 export default App;
+
+// Contenedor para la barra de progreso que evita desbordes (mobile first)
+const ProgressBarWrapper = styled.div`
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
