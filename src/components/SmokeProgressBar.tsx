@@ -10,7 +10,6 @@
 //   - Totalmente responsivo
 //   - Pensado para usarse en la UI principal de la app
 
-import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
 // Paleta de colores consistente con la app
