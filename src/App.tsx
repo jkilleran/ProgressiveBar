@@ -27,11 +27,21 @@ const border = '#222b36';
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Space+Grotesk:wght@400;700&display=swap');
   body {
-    background: ${dark};
-    color: #fff;
+    background: linear-gradient(135deg, #10141a 60%, #181d23 100%);
+    color: #eafcff;
     font-family: 'Space Grotesk', 'Inter', 'Segoe UI', Arial, sans-serif;
     letter-spacing: 0.01em;
     transition: background 0.5s cubic-bezier(.4,2,.6,1), color 0.5s cubic-bezier(.4,2,.6,1);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Efecto glass global */
+    background-attachment: fixed;
+    background-size: cover;
+  }
+  ::selection {
+    background: #00eaff55;
+    color: #10141a;
   }
 `;
 
@@ -45,7 +55,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(135deg, #10141a 60%, #181d23 100%);
+  background: none;
   overflow-x: hidden;
   animation: fadeInBg 1.2s cubic-bezier(.4,2,.6,1);
   @keyframes fadeInBg {
@@ -61,33 +71,58 @@ const MenuButton = styled.button`
   left: 0.5rem;
   margin: 0;
   z-index: 9999;
-  background: linear-gradient(90deg, #00eaff 60%, #00b3c6 100%);
-  color: #10141a;
+  background: rgba(0,234,255,0.18);
+  color: #00eaff;
   border: none;
-  border-radius: 12px;
+  border-radius: 0;
   padding: 0.3rem 0.5rem;
   width: 36px;
   height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 10px 0 #00eaff77, 0 1px 0 #00eaff;
+  box-shadow: 0 2px 10px 0 #00eaff33, 0 1px 0 #00eaff;
   cursor: pointer;
   font-size: 1.2rem;
-  transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.08s;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.08s, border 0.18s;
   opacity: 1;
   pointer-events: auto;
+  backdrop-filter: blur(2.5px);
+  outline: none; /* Elimina el outline amarillo por defecto */
+  /* Forzar color cyan en el icono y texto */
+  span, svg {
+    color: #00eaff !important;
+    fill: #00eaff !important;
+    text-shadow: 0 1px 4px #00eaff44;
+  }
   &:hover {
-    background: #0e1a1f;
-    color: ${cyan};
+    background: #00eaff22;
+    color: #fff;
     box-shadow: 0 4px 16px 0 #00eaffcc;
+    border: 2px solid #00eaff;
+    span, svg {
+      color: #fff !important;
+      fill: #fff !important;
+    }
     transform: translateY(-2px) scale(1.08);
   }
   &:active {
     background: #00eaff;
     color: #10141a;
     box-shadow: 0 2px 8px 0 #00eaff33;
+    border: 2px solid #00eaff;
+    span, svg {
+      color: #10141a !important;
+      fill: #10141a !important;
+    }
     transform: scale(0.97);
+  }
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    border: 2px solid #00eaff;
+    box-shadow: 0 0 0 2.5px #00eaff77, 0 2px 12px 0 #00eaff44;
+    background: #00eaff22;
   }
 `;
 
@@ -95,23 +130,24 @@ const MenuButton = styled.button`
 const Menu = styled.nav`
   width: 100vw;
   max-width: 100vw;
-  /* Fondo transparente, sin background */
-  background: none;
-  padding: 0.4rem 0 0.3rem 0;
-  margin: 8px 0 8px 0;
+  background: linear-gradient(120deg, rgba(24,29,35,0.82) 80%, rgba(0,234,255,0.08) 100%);
+  padding: 0.7rem 0.2rem 0.5rem 0.2rem;
+  margin: 10px 0 12px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
-  gap: 0.4rem;
-  box-shadow: 0 2px 12px 0 #00eaff22;
-  border-bottom: 1.5px solid #00eaff33;
-  border-radius: 10px;
+  gap: 0.7rem;
+  box-shadow: 0 4px 24px 0 #00eaff33, 0 2px 8px 0 #000c;
+  border-bottom: 2.5px solid #00eaff55;
+  border-radius: 0;
   opacity: 1;
   pointer-events: auto;
   position: relative;
   z-index: 100;
   animation: menuFadeIn 0.7s cubic-bezier(.22,1.5,.56,1);
+  backdrop-filter: blur(6px) saturate(1.2);
+  transition: box-shadow 0.25s, background 0.25s, border 0.22s;
   @keyframes menuFadeIn {
     0% { opacity: 0; transform: translateY(-24px) scale(0.95); }
     100% { opacity: 1; transform: translateY(0) scale(1); }
@@ -123,17 +159,24 @@ const MenuGroup = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 0.18rem;
-  background: none;
+  gap: 0.32rem;
+  background: rgba(24,29,35,0.55);
   border-radius: 0;
-  padding: 0.1rem 0.2rem;
+  padding: 0.22rem 0.32rem 0.18rem 0.32rem;
   border: none;
-  box-shadow: none;
+  box-shadow: 0 1.5px 8px 0 #00eaff11 inset;
   position: relative;
   z-index: 101;
   width: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
+  margin-bottom: 0.18rem;
+  border-bottom: 2px solid #00eaff22;
+  transition: box-shadow 0.22s, background 0.22s;
+  &:hover {
+    background: rgba(24,29,35,0.75);
+    box-shadow: 0 2.5px 16px 0 #00eaff22 inset, 0 1.5px 8px 0 #00eaff22;
+  }
   label {
     color: #b2eaff;
     font-size: 0.85rem;
@@ -153,22 +196,28 @@ const MenuGroup = styled.div`
 
 // Sección para agregar progreso (mobile first)
 const AddProcessSection = styled.section`
-  margin: 8px 0 0.3rem 0;
+  margin: 12px 0 0.3rem 0;
   display: flex;
   flex-direction: column;
-  gap: 0.18rem;
+  gap: 0.32rem;
   align-items: stretch;
   width: 100%;
   justify-content: center;
+  background: rgba(24,29,35,0.55);
+  border-radius: 0;
+  box-shadow: 0 1.5px 8px 0 #00eaff11 inset;
+  padding: 0.22rem 0.32rem 0.18rem 0.32rem;
+  border-bottom: 2px solid #00eaff22;
+  transition: box-shadow 0.22s, background 0.22s;
 `;
 
 // Input custom para meta y agregar progreso (mobile first)
 const Input = styled.input`
   background: rgba(21, 24, 30, 0.85);
   backdrop-filter: blur(2.5px);
-  border: 1.5px solid ${cyan};
+  border: 2px solid ${cyan};
   color: #fff;
-  border-radius: 10px;
+  border-radius: 0;
   padding: 0.22rem 0.7rem;
   width: 100%;
   max-width: 100%;
@@ -195,7 +244,7 @@ const Input = styled.input`
     border-color: #00eaff;
   }
   &:focus {
-    border: 1.5px solid #fff;
+    border: 2px solid #fff;
     box-shadow: 0 0 0 2.5px #00eaff66, 0 2px 12px 0 #00eaff44;
     background: rgba(24, 29, 35, 1);
     color: #fff;
@@ -211,9 +260,9 @@ const Input = styled.input`
 const Select = styled.select`
   background: rgba(21, 24, 30, 0.85);
   backdrop-filter: blur(2.5px);
-  border: 1.5px solid ${cyan};
+  border: 2px solid ${cyan};
   color: #fff;
-  border-radius: 10px;
+  border-radius: 0;
   padding: 0.22rem 0.7rem;
   width: 100%;
   max-width: 100%;
@@ -226,13 +275,14 @@ const Select = styled.select`
   overflow-x: hidden;
   outline: none;
   transition: border 0.25s cubic-bezier(.4,2,.6,1), box-shadow 0.25s cubic-bezier(.4,2,.6,1), background 0.25s cubic-bezier(.4,2,.6,1), color 0.18s;
+  border-radius: 0;
   &:hover {
     background: rgba(24, 29, 35, 0.95);
     box-shadow: 0 4px 16px 0 #00eaff33, 0 0.5px 0 #00eaff77;
     border-color: #00eaff;
   }
   &:focus {
-    border: 1.5px solid #fff;
+    border: 2px solid #fff;
     box-shadow: 0 0 0 2.5px #00eaff66, 0 2px 12px 0 #00eaff44;
     background: rgba(24, 29, 35, 1);
     color: #fff;
@@ -247,8 +297,8 @@ const Button = styled.button`
   background: linear-gradient(90deg, #00eaff 60%, #00b3c6 100%);
   color: #10141a;
   border: none;
-  border-radius: 8px;
-  padding: 0.18rem 0.5rem; /* padding lateral reducido para ultra compacto */
+  border-radius: 0;
+  padding: 0.18rem 0.5rem;
   min-width: 0;
   max-width: 100%;
   width: 100%;
@@ -256,7 +306,7 @@ const Button = styled.button`
   font-weight: 700;
   font-size: 0.95rem;
   cursor: pointer;
-  box-shadow: 0 0 0 1.5px #00eaff99, 0 2px 6px 0 #00eaff22;
+  box-shadow: 0 0 0 2px #00eaff99, 0 2px 6px 0 #00eaff22;
   margin: 0;
   box-sizing: border-box;
   overflow-x: hidden;
@@ -273,12 +323,12 @@ const Button = styled.button`
   &:active {
     background: #00eaff;
     color: #10141a;
-    box-shadow: 0 0 0 1.5px #00eaff99, 0 1px 2px 0 #00eaff22;
+    box-shadow: 0 0 0 2px #00eaff99, 0 1px 2px 0 #00eaff22;
     transform: scale(0.97);
   }
   .ripple {
     position: absolute;
-    border-radius: 50%;
+    border-radius: 0;
     transform: scale(0);
     animation: ripple 0.7s cubic-bezier(.4,2,.6,1);
     background: rgba(0,234,255,0.25);
@@ -306,15 +356,17 @@ const Main = styled.div<{ animate?: boolean; resetAnim?: boolean; completeAnim?:
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(135deg, #181d23 80%, #10141a 100%);
-  border-radius: 14px;
-  box-shadow: 0 6px 24px 0 #00eaff44, 0 2px 8px 0 #000c;
+  gap: 0.38rem;
+  background: rgba(24,29,35,0.82);
+  backdrop-filter: blur(4px);
+  border-radius: 0;
+  box-shadow: 0 8px 32px 0 #00eaff33, 0 2px 8px 0 #000c;
   padding: 1.1rem 0.6rem 1.1rem 0.6rem;
   border: 1.5px solid ${border};
   opacity: ${({ animate }) => (animate ? 1 : 0)};
-  margin: 10px 0 10px 0;
+  margin: 14px 0 14px 0;
   animation: ${({ animate }) => animate ? 'mainBounceIn 1.1s cubic-bezier(.22,1.5,.56,1) both' : 'none'};
-  transition: opacity 0.9s cubic-bezier(.4,2,.6,1), transform 0.9s cubic-bezier(.4,2,.6,1), box-shadow 0.7s cubic-bezier(.4,2,.6,1);
+  transition: opacity 0.9s cubic-bezier(.4,2,.6,1), transform 0.9s cubic-bezier(.4,2,.6,1), box-shadow 0.7s cubic-bezier(.4,2,.6,1), background 0.3s;
   @keyframes mainBounceIn {
     0% { opacity: 0; transform: translate(-50%, -50%) scale(0.85) translateY(80px); }
     60% { opacity: 1; transform: translate(-50%, -50%) scale(1.08) translateY(-10px); }
@@ -401,7 +453,7 @@ const ResetIconButton = styled.button`
   align-items: center;
   justify-content: center;
   font-size: 1.25rem;
-  border-radius: 8px;
+  border-radius: 0;
   transition: color 0.18s, transform 0.12s, background 0.18s;
   &:hover {
     color: #fff;
@@ -439,7 +491,7 @@ const ConfirmBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 0;
   margin: 0;
   animation: fadeInBox 0.7s cubic-bezier(.22,1.5,.56,1);
   @keyframes fadeInBox {
@@ -703,4 +755,10 @@ const ProgressBarWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgba(24,29,35,0.55);
+  border-radius: 0;
+  box-shadow: 0 1.5px 8px 0 #00eaff11 inset;
+  margin-bottom: 0.18rem;
+  padding: 0.18rem 0.18rem 0.12rem 0.18rem;
+  transition: box-shadow 0.22s, background 0.22s;
 `;

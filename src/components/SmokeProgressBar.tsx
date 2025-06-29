@@ -72,6 +72,7 @@ const Progress = styled.div<{ percent: number }>`
   z-index: 1;
   box-shadow: 0 0 24px 0 #00eaff55;
   animation: ${progressAnim} 1.1s cubic-bezier(.4,2,.6,1);
+  border-radius: 0;
 `;
 
 // Efecto de humo animado sobre la barra
@@ -85,6 +86,7 @@ const Smoke = styled.div`
   opacity: 0.7;
   mix-blend-mode: lighten;
   animation: smokeMove 2.5s linear infinite alternate;
+  border-radius: 0;
   @keyframes smokeMove {
     0% { background-position: 0 0; }
     100% { background-position: 40px 20px; }
@@ -98,19 +100,30 @@ const Label = styled.div`
   transform: translate(-50%, -50%);
   color: #fff;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.13rem;
   letter-spacing: 0.01em;
   z-index: 3;
-  text-shadow: 0 2px 8px #000a;
+  text-shadow: 0 2px 8px #000a, 0 0 2px #00eaffcc;
   user-select: none;
+  padding: 0.08em 0.7em;
+  border-radius: 0;
+  background: none;
+  border: none;
+  max-width: 92%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: color 0.18s, text-shadow 0.18s;
   @media (max-width: 700px) {
-    font-size: 0.95rem;
+    font-size: 0.98rem;
+    padding: 0.07em 0.5em;
   }
   @media (max-width: 400px) {
     font-size: 0.82rem;
-    padding: 0 0.1rem;
+    padding: 0.06em 0.3em;
     max-width: 98vw;
     word-break: break-word;
+    white-space: normal;
   }
 `;
 
