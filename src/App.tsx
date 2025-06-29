@@ -17,8 +17,6 @@ import { useRef, useState, useEffect } from 'react';
 
 // Paleta de colores principal (dark/cyan)
 const cyan = '#00eaff';
-const dark = '#10141a';
-const card = '#181d23';
 const border = '#222b36';
 
 // --- ESTILOS PARA 275px DE ANCHO CON MEJORAS ESTÉTICAS Y ANIMACIONES ---
@@ -130,24 +128,22 @@ const MenuButton = styled.button`
 const Menu = styled.nav`
   width: 100vw;
   max-width: 100vw;
-  background: linear-gradient(120deg, rgba(24,29,35,0.82) 80%, rgba(0,234,255,0.08) 100%);
-  padding: 0.7rem 0.2rem 0.5rem 0.2rem;
-  margin: 10px 0 12px 0;
+  background: none;
+  padding: 0.4rem 0 0.3rem 0;
+  margin: 8px 0 8px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
-  gap: 0.7rem;
-  box-shadow: 0 4px 24px 0 #00eaff33, 0 2px 8px 0 #000c;
-  border-bottom: 2.5px solid #00eaff55;
+  gap: 0.4rem;
+  box-shadow: 0 2px 12px 0 #00eaff22;
+  border-bottom: 2px solid #00eaff33;
   border-radius: 0;
   opacity: 1;
   pointer-events: auto;
   position: relative;
   z-index: 100;
   animation: menuFadeIn 0.7s cubic-bezier(.22,1.5,.56,1);
-  backdrop-filter: blur(6px) saturate(1.2);
-  transition: box-shadow 0.25s, background 0.25s, border 0.22s;
   @keyframes menuFadeIn {
     0% { opacity: 0; transform: translateY(-24px) scale(0.95); }
     100% { opacity: 1; transform: translateY(0) scale(1); }
@@ -359,7 +355,7 @@ const Main = styled.div<{ animate?: boolean; resetAnim?: boolean; completeAnim?:
   gap: 0.38rem;
   background: rgba(24,29,35,0.82);
   backdrop-filter: blur(4px);
-  border-radius: 0;
+  border-radius: 0; // Cambiado a esquinas cuadradas
   box-shadow: 0 8px 32px 0 #00eaff33, 0 2px 8px 0 #000c;
   padding: 1.1rem 0.6rem 1.1rem 0.6rem;
   border: 1.5px solid ${border};
@@ -453,7 +449,7 @@ const ResetIconButton = styled.button`
   align-items: center;
   justify-content: center;
   font-size: 1.25rem;
-  border-radius: 0;
+  border-radius: 0; // cuadrado
   transition: color 0.18s, transform 0.12s, background 0.18s;
   &:hover {
     color: #fff;
@@ -491,7 +487,7 @@ const ConfirmBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 0;
+  border-radius: 0; // cuadrado
   margin: 0;
   animation: fadeInBox 0.7s cubic-bezier(.22,1.5,.56,1);
   @keyframes fadeInBox {
@@ -513,7 +509,31 @@ const ConfirmActions = styled.div`
 const LightningOverlay = styled.div`
   display: none !important;
 `;
-const LightningSVG = (props: any) => null;
+type LightningSVGProps = {
+  viewBox: string;
+  delay: number;
+  left: string;
+  top: string;
+  scale: number;
+  children?: React.ReactNode;
+};
+
+const LightningSVG: React.FC<LightningSVGProps> = ({ viewBox, delay, left, top, scale, children }) => {
+  return (
+    <svg
+      viewBox={viewBox}
+      style={{
+        position: 'absolute',
+        left,
+        top,
+        transform: `scale(${scale})`,
+        animationDelay: `${delay}s`,
+      }}
+    >
+      {children}
+    </svg>
+  );
+};
 
 // Utilidad para formatear valores
 const formatValue = (val: number, type: 'currency' | 'elements', lang: string) =>
@@ -756,7 +776,7 @@ const ProgressBarWrapper = styled.div`
   align-items: center;
   justify-content: center;
   background: rgba(24,29,35,0.55);
-  border-radius: 0;
+  border-radius: 0; // cuadrado
   box-shadow: 0 1.5px 8px 0 #00eaff11 inset;
   margin-bottom: 0.18rem;
   padding: 0.18rem 0.18rem 0.12rem 0.18rem;
