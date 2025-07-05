@@ -550,6 +550,7 @@ function App() {
       i18n.changeLanguage('en');
     }
   }, []);
+
   const [goal, setGoal] = useState(100);
   const [current, setCurrent] = useState(0);
   const [type, setType] = useState<'currency' | 'elements'>('currency');
@@ -562,6 +563,24 @@ function App() {
   const [addAnim, setAddAnim] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
+
+  // --- Persistencia localStorage ---
+  // Cargar progreso guardado al iniciar
+  useEffect(() => {
+    const saved = localStorage.getItem('progressivebar-data');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (typeof parsed.goal === 'number') setGoal(parsed.goal);
+        if (typeof parsed.current === 'number') setCurrent(parsed.current);
+        if (parsed.type === 'currency' || parsed.type === 'elements') setType(parsed.type);
+      } catch {}
+    }
+  }, []);
+  // Guardar progreso cada vez que cambian los datos
+  useEffect(() => {
+    localStorage.setItem('progressivebar-data', JSON.stringify({ goal, current, type }));
+  }, [goal, current, type]);
 
   // Animación de entrada del panel principal
   useEffect(() => { setTimeout(() => setMainVisible(true), 200); }, []);
